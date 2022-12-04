@@ -35,6 +35,7 @@ public class ContasPagarDTO {
     private Boolean isAprovado;
     @NotNull(message = "Empresa deve ser preenchido.")
     private String nomeEmpresa;
+    private Long empresaId;
     private Integer numeroParcelas;
     private String classificacaoDespesa;
     private String subClassificacaoDespesa;

@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContasPagarInput {
     private Integer id;
-    private String dataVencimento;
-    private String dataPagamento;
+    private LocalDate dataVencimento;
+    private LocalDate dataPagamento;
     private String valorDuplicata;
     private String fornecedor;
     private String nd;
@@ -19,5 +22,10 @@ public class ContasPagarInput {
     private String tipoDespesa;
     private String observacao;
     private Integer numeroParcelas;
-    private Integer empresa_id;
+    private Long empresa_id;
+    private String classificacaoDespesa;
+    private String subClassificacaoDespesa;
+    private Boolean isPedirBoleto;
+
+
 }

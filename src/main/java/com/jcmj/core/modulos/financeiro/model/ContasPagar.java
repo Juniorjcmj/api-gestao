@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -86,20 +85,5 @@ public class ContasPagar extends PanacheEntity {
     @JoinColumn(name = "empresa_id")
     public Empresa empresa;
 
-    public static List<ContasPagar> findByNumeroDocumento(String numeroDocumento) {
-        return find("nd", numeroDocumento).list();
-    }
-    public static List<ContasPagar> findByDataVenvimento(LocalDate dtVencimento) {
-        return find("dataVencimento", dtVencimento).list();
-    }
-    public static List<ContasPagar> findByDataPagamento(LocalDate dtPagamento) {
-        return find("dataPagamento", dtPagamento).list();
-    }
-    public static List<ContasPagar> findByFornecedor(String fornecedor ) {
-        return find("fornecedor", fornecedor).list();
-    }
-    public static List<ContasPagar> findByEmptresa(Empresa empresa ) {
-        return find("empresa", empresa).list();
-    }
 
 }

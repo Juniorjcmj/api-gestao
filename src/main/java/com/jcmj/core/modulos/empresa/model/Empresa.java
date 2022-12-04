@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 
 @Entity
 public class Empresa extends PanacheEntity {
-
     public String nome;
     public String cnpj;
     public String endereco;

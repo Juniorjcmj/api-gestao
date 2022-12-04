@@ -8,10 +8,6 @@ import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 @ApplicationScoped
 public class ContasPagarAddBuilder {
@@ -26,8 +22,10 @@ public class ContasPagarAddBuilder {
     }
 
     public ContasPagarAddBuilder addAtributosObrigatorios(String fornecedor, String nd, String tipoDespesa,
-                                                          String formaPagamento) {
+                                                          String formaPagamento, Integer numeroParcelas, Boolean isPedirBoleto) {
 
+        this.instancia.isPedirBoleto = isPedirBoleto;
+        this.instancia.numeroParcelas = numeroParcelas;
         this.instancia.fornecedor = fornecedor;
         this.instancia.nd = nd;
         this.instancia.tipoDespesa = tipoDespesa;
@@ -38,9 +36,10 @@ public class ContasPagarAddBuilder {
         this.instancia.empresa = empresa;
         return this;
     }
-    public ContasPagarAddBuilder addValorDuplicata(Integer id, Integer numeroParcelas, BigDecimal valorDuplicata,
+    public ContasPagarAddBuilder addValorDuplicata(Object id, Integer numeroParcelas, BigDecimal valorDuplicata,
                                                    BigDecimal desconto, BigDecimal multa) {
-
+         desconto = desconto == null ? BigDecimal.ZERO : desconto;
+         multa = multa == null ? BigDecimal.ZERO : multa;
         if (numeroParcelas > 1 && id == null) {
             this.instancia
                     .valorDuplicata = valorDuplicata.divide(new BigDecimal(numeroParcelas), 3, RoundingMode.CEILING);
@@ -107,12 +106,16 @@ public class ContasPagarAddBuilder {
     public ContasPagarAddBuilder addClassificacao(String classificacao) {
         if (classificacao != null && classificacao != "") {
             this.instancia.classificacaoDespesa = classificacao;
+        }else{
+            this.instancia.classificacaoDespesa = "N/C";
         }
         return this;
     }
     public ContasPagarAddBuilder addSubClassificacao(String subClassificacao) {
         if (subClassificacao != null && subClassificacao != "") {
             this.instancia.subClassificacaoDespesa = subClassificacao;
+        }else{
+            this.instancia.subClassificacaoDespesa = "N/C";
         }
         return this;
     }
