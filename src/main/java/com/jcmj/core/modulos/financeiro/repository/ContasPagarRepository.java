@@ -210,18 +210,22 @@ public class ContasPagarRepository implements PanacheRepository<ContasPagar> {
 
 
         if(filtro.getClassificacaoDespesa() != null && (!(filtro.getClassificacaoDespesa().isEmpty()))){
+
+            var predicate= new ArrayList<Predicate>();
             for(int i = 0; i < filtro.getClassificacaoDespesa().size() ; i++){
-                if(!(filtro.getClassificacaoDespesa().get(i).equalsIgnoreCase("null") ) && (!filtro.getClassificacaoDespesa().get(i).isEmpty())){
-                    predicates.add(builder.equal(root.get("classificacaoDespesa"), filtro.getClassificacaoDespesa().get(i)));
-                }
+
+                predicate.add(builder.equal(root.get("classificacaoDespesa"), filtro.getClassificacaoDespesa().get(i)));
             }
+            predicates.add(builder.or(predicate.toArray(new Predicate[0])));
         }
        if( (filtro.getSubClassificacaoDespesa() != null && !(filtro.getSubClassificacaoDespesa().isEmpty()))){
+
+           var predicate= new ArrayList<Predicate>();
            for(int i = 0; i < filtro.getSubClassificacaoDespesa().size(); i++){
-               if(!(filtro.getSubClassificacaoDespesa().get(i).equalsIgnoreCase("null") ) && (!filtro.getSubClassificacaoDespesa().get(i).isEmpty())){
-                   predicates.add(builder.equal(root.get("subClassificacaoDespesa"), filtro.getSubClassificacaoDespesa().get(i)));
-               }
+
+               predicate.add(builder.equal(root.get("subClassificacaoDespesa"), filtro.getSubClassificacaoDespesa().get(i)));
            }
+           predicates.add(builder.or(predicate.toArray(new Predicate[0])));
        }
 
 
