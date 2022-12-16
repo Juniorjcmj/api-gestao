@@ -209,7 +209,7 @@ public class ContasPagarRepository implements PanacheRepository<ContasPagar> {
         }
 
 
-        if(filtro.getClassificacaoDespesa() != null && (!(filtro.getClassificacaoDespesa().isEmpty()))){
+        if(filtro.getClassificacaoDespesa() != null && (!(filtro.getClassificacaoDespesa().isEmpty())) && filtro.getSubClassificacaoDespesa().isEmpty()){
 
             var predicate= new ArrayList<Predicate>();
             for(int i = 0; i < filtro.getClassificacaoDespesa().size() ; i++){
