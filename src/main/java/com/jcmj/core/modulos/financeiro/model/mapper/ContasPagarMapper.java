@@ -5,6 +5,7 @@ import com.jcmj.core.modulos.conciliacao.resource.input.ConciliacaoCartaoDTO;
 import com.jcmj.core.modulos.financeiro.model.ContasPagar;
 import com.jcmj.core.modulos.financeiro.model.dto.ContasPagarDTO;
 import com.jcmj.core.modulos.financeiro.model.input.ContasPagarInput;
+import com.jcmj.core.modulos.financeiro.model.input.ContasPagarUpdateGenerico;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,6 +19,7 @@ public interface ContasPagarMapper {
 
     //--- INPUT TO DAO
     @Mapping(target = "empresa",expression = "java(ConvertEmpresaToId.convertIdToEmpresa(input.getEmpresa_id()))")
+    @Mapping(target = "valorDuplicata",expression = "java(ConvertEmpresaToId.converterStringEmBigDecimal(input.getValorDuplicata()))")
     ContasPagar toModel(ContasPagarInput input);
 
     //---DAO  to DTO

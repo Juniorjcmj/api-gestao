@@ -7,9 +7,11 @@ import com.jcmj.core.modulos.financeiro.service.ContasPagarService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
+@Transactional
 public class ContasPagarServiceImpl implements ContasPagarService {
     @Inject
     ContasPagarRepository repository;
@@ -20,7 +22,7 @@ public class ContasPagarServiceImpl implements ContasPagarService {
 
         for(int i = 0; i< quantasVouInserir ; i++){
             if(contasPagar.id != null){
-                ContasPagar contaExistente = ContasPagar.findById(contasPagar.id);
+                 ContasPagar contaExistente = ContasPagar.findById(contasPagar.id);
                  insertStrategie(contasPagar,i, contaExistente).persist();
             }else{
                 insertStrategie(contasPagar,i, new ContasPagar()).persist();
@@ -33,17 +35,21 @@ public class ContasPagarServiceImpl implements ContasPagarService {
 
         if (contaExistente.id == null) {
             contaExistente = new ContasPagarAddBuilder()
-                    .addAtributosObrigatorios(novaConta.fornecedor,  novaConta.nd,
-                            novaConta.tipoDespesa, novaConta.formaPagamento, novaConta.numeroParcelas, novaConta.isPedirBoleto)
+                    .addAtributosObrigatorios(novaConta.fornecedor,
+                            novaConta.nd,
+                            novaConta.tipoDespesa,
+                            novaConta.formaPagamento,
+                            novaConta.numeroParcelas,
+                            novaConta.isPedirBoleto)
                     .addDataVencimento(novaConta.dataVencimento, i)
                     .addEmpresa(novaConta.empresa)
                     .addValorDuplicata(novaConta.id, novaConta.numeroParcelas, novaConta.valorDuplicata,
                             novaConta.desconto, novaConta.jurosMulta)
                     .addDataPagamento(novaConta.dataPagamento)
-                    .addParcela("", novaConta.numeroParcelas, i)
                     .addObservacao(novaConta.observacao)
                     .addSubClassificacao(novaConta.subClassificacaoDespesa)
                     .addClassificacao(novaConta.classificacaoDespesa)
+                    .addParcela("", novaConta.numeroParcelas, i)
                     .contruir();
         } else {
             contaExistente = new ContasPagarAddBuilder(contaExistente)
@@ -56,15 +62,13 @@ public class ContasPagarServiceImpl implements ContasPagarService {
                     .addDataVencimento(novaConta.dataVencimento, i)
                     .addEmpresa(novaConta.empresa)
                     .addValorDuplicata(novaConta.id,novaConta.numeroParcelas, novaConta.valorDuplicata,
-                            novaConta.desconto, novaConta.jurosMulta)
+                                       novaConta.desconto, novaConta.jurosMulta)
                     .addDataPagamento(novaConta.dataPagamento)
-                    .addParcela(novaConta.parcela, novaConta.numeroParcelas, i)
                     .addObservacao(novaConta.observacao)
                     .addSubClassificacao(novaConta.subClassificacaoDespesa)
                     .addClassificacao(novaConta.classificacaoDespesa)
                     .contruir();
         }
         return contaExistente;
-
     }
 }

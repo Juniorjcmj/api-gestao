@@ -6,7 +6,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "classificacao_despesa")
 public class ClassificacaoDespesa extends PanacheEntity {
+
+    public String descricao;
 
     @Column(name="lista_produtos")
     @OneToMany

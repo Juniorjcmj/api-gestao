@@ -1,10 +1,13 @@
 package com.jcmj.core.modulos.conciliacao.resource;
 
+import com.jcmj.core.modulos.conciliacao.repository.ConciliacaoCartaoRepository;
+import com.jcmj.core.modulos.conciliacao.resource.input.ConciliacaoCartaoDTO;
 import com.jcmj.core.modulos.conciliacao.resource.input.ConciliacaoCartaoInput;
 import com.jcmj.core.modulos.conciliacao.resource.mistica.ConciliacaoCartaoMistica;
 import com.jcmj.core.modulos.conciliacao.service.ConciliacaoCartaoService;
 import com.jcmj.core.modulos.conciliacao.model.ConciliacaoCartoes;
 import com.jcmj.core.modulos.empresa.model.Empresa;
+import com.jcmj.core.modulos.financeiro.model.dto.ContasPagarDTO;
 import io.quarkus.panache.common.Page;
 import io.quarkus.security.Authenticated;
 
@@ -14,7 +17,10 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Path("/V1/api-conciliacao")
@@ -25,6 +31,35 @@ public class ConciliacaoCartaoResource {
     ConciliacaoCartaoMistica cartaoMistica;
     @Inject
     ConciliacaoCartaoService service;
+    @Inject
+    ConciliacaoCartaoRepository repository;
+
+
+    @GET
+    @Path("/filtro-avancado")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response findByAllAvancado(@QueryParam("dtInicio") String dtInicio,
+                                      @QueryParam("dtFim") String dtFim,
+                                      @QueryParam("tipoOperacao" )String tipoOperacao,
+                                      @QueryParam("numeroPedido" )String numeroPedido,
+                                      @QueryParam("dataRecebimento" )String dataRecebimento,
+                                      @QueryParam("idEmpresa" )String idEmpresa,
+                                      @QueryParam("previsaoRecebimento" )String previsaoRecebimento,
+                                      @QueryParam("isRecebido" )String isRecebido,
+                                      @QueryParam("aute" )String aut,
+                                      @QueryParam("idOperadora" )String idOperadora
+                                      ) throws ParseException {
+        List<ConciliacaoCartaoDTO> listDto = repository.findByAllAvancado(aut,numeroPedido,dtInicio,dtFim,idEmpresa,idOperadora,
+                        tipoOperacao,isRecebido,previsaoRecebimento,dataRecebimento)
+                .stream()
+                .map(model -> cartaoMistica.modelToDto(model))
+                .collect(Collectors.toList());
+        return Response.status(Response.Status.OK)
+                .entity(listDto)
+                .build();
+    }
+
 
     /**
      * Retorna uma Conciliação

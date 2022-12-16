@@ -52,8 +52,7 @@ public class ContasPagarAddBuilder {
            this.instancia.jurosMulta = multa;
         }
 
-        this.instancia.valorPago = this.instancia.valorDuplicata.subtract(this.instancia.desconto
-                .add(this.instancia.jurosMulta));
+        this.instancia.valorPago = this.instancia.valorDuplicata.subtract(this.instancia.desconto).add(this.instancia.jurosMulta);
         return this;
     }
     public ContasPagarAddBuilder addParcela(String parcela, Integer numeroParcelas, int i) {
@@ -90,7 +89,7 @@ public class ContasPagarAddBuilder {
 
     public ContasPagarAddBuilder addDataVencimento(LocalDate dataVencimento, Integer mes) {
         if (this.instancia.id == null) {
-           this.instancia.dataVencimento = dataVencimento.plusWeeks(mes);
+           this.instancia.dataVencimento = dataVencimento.plusMonths(mes);
         } else {
             this.instancia.dataVencimento  = dataVencimento;
         }
