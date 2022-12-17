@@ -29,5 +29,7 @@ public class FiltroContasPagar {
     private List<String> empresaId;
     private List<String> classificacaoDespesa;
     private List<String> subClassificacaoDespesa;
-
+    public FiltroContasPagar(String nd) {
+        this.nd = nd;
+    }
 }

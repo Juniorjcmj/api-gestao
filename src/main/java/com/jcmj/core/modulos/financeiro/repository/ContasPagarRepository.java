@@ -37,10 +37,19 @@ public class ContasPagarRepository implements PanacheRepository<ContasPagar> {
         var predicates = new ArrayList<Predicate>();
 
         if(filtro.getDataVencimentoFinal() != null){
-            predicates.add(builder.between(root.get("dataVencimento"), LocalDate.parse(filtro.getDataVencimentoFinal()) ,LocalDate.parse(filtro.getDataVencimentoFinal())));
+            predicates.add(builder.between(root.get("dataVencimento"), LocalDate.parse(filtro.getDataVencimentoInicial()) ,LocalDate.parse(filtro.getDataVencimentoFinal())));
         }else if(filtro.getDataVencimentoInicial() != null){
             predicates.add(builder.equal(root.get("dataVencimento"), LocalDate.parse(filtro.getDataVencimentoInicial())));
         }
+
+        if(filtro.getDataPagamentoFinal() != null){
+            predicates.add(builder.between(root.get("dataPagamento"), LocalDate.parse(filtro.getDataPagamentoInicial()) ,LocalDate.parse(filtro.getDataPagamentoFinal())));
+        }else if(filtro.getDataPagamentoInicial() != null){
+            predicates.add(builder.equal(root.get("dataPagamento"), LocalDate.parse(filtro.getDataPagamentoInicial())));
+        }
+
+
+
         if(filtro.getTipoDespesa() != null ){
             predicates.add(builder.like(root.get("tipoDespesa"), filtro.getTipoDespesa()));
         }
