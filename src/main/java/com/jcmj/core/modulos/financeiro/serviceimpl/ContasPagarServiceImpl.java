@@ -33,6 +33,18 @@ public class ContasPagarServiceImpl implements ContasPagarService {
         return repository.findByAllAvancadissimo(new FiltroContasPagar(contasPagar.nd));
     }
 
+    @Override
+    public void delecaoEmLOte(String numeroDucumento) throws ParseException {
+
+        FiltroContasPagar filtro = new FiltroContasPagar();
+        filtro.setNd(numeroDucumento);
+        List<ContasPagar>list = repository.findByAllAvancadissimo(filtro);
+
+        for (ContasPagar conta : list) {
+            ContasPagar.deleteById(conta.id);
+        }
+    }
+
     private ContasPagar insertStrategie(ContasPagar novaConta, int i, ContasPagar contaExistente) {
 
         if (contaExistente.id == null) {

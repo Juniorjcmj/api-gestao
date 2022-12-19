@@ -81,6 +81,19 @@ public class ContasPagarResource {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
+    @Transactional
+    @Path("/delete-lote")
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteEmLote(@QueryParam("numeroDocumento") String numeroDocumento) {
+        try {
+            service.delecaoEmLOte(numeroDocumento);
+            return Response.status(Response.Status.OK).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
     @PUT
     @Path("/update-data-pagamento")
     @Produces(MediaType.APPLICATION_JSON)

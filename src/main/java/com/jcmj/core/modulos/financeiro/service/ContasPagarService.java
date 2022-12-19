@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ContasPagarService {
     List<ContasPagar> insertComParcelas(ContasPagar contasPagar) throws ParseException;
+    void delecaoEmLOte(String numeroDucumento) throws ParseException;
 
 }
