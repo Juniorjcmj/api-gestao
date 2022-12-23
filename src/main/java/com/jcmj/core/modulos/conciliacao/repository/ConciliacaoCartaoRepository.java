@@ -22,7 +22,7 @@ import java.util.List;
 public class ConciliacaoCartaoRepository {
 
     @PersistenceContext
-    private EntityManager manager;
+    EntityManager manager;
 
     /**
      *

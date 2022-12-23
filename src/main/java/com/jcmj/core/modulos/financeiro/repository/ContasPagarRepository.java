@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class ContasPagarRepository implements PanacheRepository<ContasPagar> {
 
     @PersistenceContext
-    private EntityManager manager;
+    EntityManager manager;
 
 
     public List<ContasPagar> findByAllAvancadissimo(FiltroContasPagar filtro) throws ParseException {
