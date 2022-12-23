@@ -76,7 +76,7 @@ minikube start --driver=docker
 minikube config set driver docker
 
 eval $(minikube -p minikube docker-env)
-mvn package -Dquarkus.container-image.build=true
+
 kubectl apply -f target/kubernetes/minikube.yml
 kubectl get service
 kubectl get pods
