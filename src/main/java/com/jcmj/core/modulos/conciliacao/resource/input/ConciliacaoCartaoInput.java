@@ -15,12 +15,12 @@ import java.time.LocalDate;
 public class ConciliacaoCartaoInput {
 
     private Long id;
-    @NotNull(message = "data é obrigatória.")
+
     private LocalDate data;
     private LocalDate dataRecebimento;
-    @NotBlank(message="Numero pedido é obrigatório")
+
     private String numeroPedido;
-    @NotBlank(message="Tipo é obrigatório")
+
     private String tipoOperacao;
     private String valorPedido;
     private Long idOperadora;
